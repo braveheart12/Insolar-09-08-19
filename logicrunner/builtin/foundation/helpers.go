@@ -18,6 +18,7 @@ package foundation
 
 import (
 	"errors"
+
 	"github.com/insolar/insolar/insolar/genesisrefs"
 
 	"github.com/insolar/insolar/insolar"
@@ -50,5 +51,14 @@ func GetObject(ref insolar.Reference) ProxyInterface {
 //// Get reference CostCenter contract.
 func GetCostCenter() insolar.Reference {
 	return genesisrefs.GenesisRef(insolar.GenesisNameCostCenter)
+}
 
+//// Get reference RootMember contract.
+func GetRootMember() insolar.Reference {
+	return genesisrefs.GenesisRef(insolar.GenesisNameRootMember)
+}
+
+//// Get reference RootDomain contract.
+func GetRootDomain() insolar.Reference {
+	return genesisrefs.GenesisRef(insolar.GenesisNameRootDomain)
 }

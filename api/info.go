@@ -20,6 +20,8 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/insolar/insolar/logicrunner/builtin/foundation"
+
 	"github.com/pkg/errors"
 
 	"github.com/insolar/insolar/insolar/utils"
@@ -82,23 +84,8 @@ func (s *InfoService) GetInfo(r *http.Request, args *InfoArgs, reply *InfoReply)
 
 	inslog.Infof("[ INFO ] Incoming request: %s", r.RequestURI)
 
-	rootDomain := s.runner.GenesisDataProvider.GetRootDomain(ctx)
-	if rootDomain == nil {
-		msg := "[ INFO ] rootDomain ref is nil"
-		inslog.Error(msg)
-		return errors.New(msg)
-	}
-	rootMember, err := s.runner.GenesisDataProvider.GetRootMember(ctx)
-	if err != nil {
-		msg := "[ INFO ] Can't get rootMember ref"
-		inslog.Error(errors.Wrap(err, msg))
-		return errors.Wrap(err, msg)
-	}
-	if rootMember == nil {
-		msg := "[ INFO ] rootMember ref is nil"
-		inslog.Error(msg)
-		return errors.New(msg)
-	}
+	rootDomain := foundation.GetRootDomain()
+	rootMember := foundation.GetRootMember()
 	migrationDaemonMembers, err := s.runner.GenesisDataProvider.GetMigrationDaemonMembers(ctx)
 	if err != nil {
 		msg := "[ INFO ] Can't get migration daemon members refs"

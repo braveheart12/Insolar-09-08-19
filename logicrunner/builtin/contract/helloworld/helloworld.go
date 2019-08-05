@@ -77,6 +77,24 @@ func (hw *HelloWorld) CostCenterRef() (insolar.Reference, error) {
 	return ref, nil
 }
 
+//Get root domain reference
+func (hw *HelloWorld) RootDomainRef() (insolar.Reference, error) {
+	ref := foundation.GetRootDomain()
+	if ref.IsEmpty() {
+		return insolar.Reference{}, errors.New("empty reference")
+	}
+	return ref, nil
+}
+
+//Get root member reference
+func (hw *HelloWorld) RootMemberRef() (insolar.Reference, error) {
+	ref := foundation.GetRootMember()
+	if ref.IsEmpty() {
+		return insolar.Reference{}, errors.New("empty reference")
+	}
+	return ref, nil
+}
+
 func (hw *HelloWorld) CreateChild() (interface{}, error) {
 	hwHolder := hwProxy.New()
 	chw, err := hwHolder.AsChild(hw.GetReference())
@@ -141,6 +159,10 @@ func (hw *HelloWorld) Call(signedRequest []byte) (interface{}, error) {
 		return hw.PulseNumber()
 	case "CostCenter":
 		return hw.CostCenterRef()
+	case "RootMember":
+		return hw.RootMemberRef()
+	case "RootDomain":
+		return hw.RootDomainRef()
 	default:
 		return nil, errors.New("unknown method " + request.Params.CallSite)
 	}

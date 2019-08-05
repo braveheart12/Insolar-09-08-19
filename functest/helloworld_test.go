@@ -167,6 +167,32 @@ func (i *HelloWorldInstance) CostCenter(ctx context.Context) (string, error) {
 	return rv, nil
 }
 
+func (i *HelloWorldInstance) RootMember(ctx context.Context) (string, error) {
+	member := &user{i.Ref.String(), root.privKey, root.pubKey}
+	result, err := signedRequest(member, "RootMember", nil)
+	if err != nil {
+		return "", err
+	}
+	rv, ok := result.(string)
+	if !ok {
+		return "", errors.Errorf("failed to decode: expected float64, got %T", result)
+	}
+	return rv, nil
+}
+
+func (i *HelloWorldInstance) RootDomain(ctx context.Context) (string, error) {
+	member := &user{i.Ref.String(), root.privKey, root.pubKey}
+	result, err := signedRequest(member, "RootDomain", nil)
+	if err != nil {
+		return "", err
+	}
+	rv, ok := result.(string)
+	if !ok {
+		return "", errors.Errorf("failed to decode: expected float64, got %T", result)
+	}
+	return rv, nil
+}
+
 func (i *HelloWorldInstance) CreateChild(ctx context.Context) (*HelloWorldInstance, error) {
 	seed, err := requester.GetSeed(TestAPIURL)
 	if err != nil {
@@ -280,6 +306,32 @@ func TestCallCostCenter(t *testing.T) {
 	r.NoError(err, "Unexpected error")
 	a.NotEmpty(hw.Ref, "Ref doesn't exists")
 	ref, err := hw.CostCenter(ctx)
+	r.NoError(err)
+
+	r.True(len(ref) > 0)
+}
+
+func TestCallRootMember(t *testing.T) {
+	a, r := assert.New(t), require.New(t)
+	ctx := context.TODO()
+
+	hw, err := NewHelloWorld(ctx)
+	r.NoError(err, "Unexpected error")
+	a.NotEmpty(hw.Ref, "Ref doesn't exists")
+	ref, err := hw.RootMember(ctx)
+	r.NoError(err)
+
+	r.True(len(ref) > 0)
+}
+
+func TestCallRootDomain(t *testing.T) {
+	a, r := assert.New(t), require.New(t)
+	ctx := context.TODO()
+
+	hw, err := NewHelloWorld(ctx)
+	r.NoError(err, "Unexpected error")
+	a.NotEmpty(hw.Ref, "Ref doesn't exists")
+	ref, err := hw.RootDomain(ctx)
 	r.NoError(err)
 
 	r.True(len(ref) > 0)

@@ -18,6 +18,7 @@ package genesisrefs
 
 import (
 	"fmt"
+
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/insolar/record"
 	"github.com/insolar/insolar/platformpolicy"
@@ -40,8 +41,6 @@ var PredefinedPrototypes = map[string]insolar.Reference{
 	insolar.GenesisNameMember + GenesisPrototypeSuffix:               *GenerateReference("prototype", insolar.GenesisNameMember, 0),
 	insolar.GenesisNameMigrationAdminMember + GenesisPrototypeSuffix: *GenerateReference("prototype", insolar.GenesisNameMember, 0),
 	insolar.GenesisNameMigrationWallet + GenesisPrototypeSuffix:      *GenerateReference("prototype", insolar.GenesisNameWallet, 0),
-	insolar.GenesisNameStandardTariff + GenesisPrototypeSuffix:       *GenerateReference("prototype", insolar.GenesisNameTariff, 0),
-	insolar.GenesisNameTariff + GenesisPrototypeSuffix:               *GenerateReference("prototype", insolar.GenesisNameTariff, 0),
 	insolar.GenesisNameWallet + GenesisPrototypeSuffix:               *GenerateReference("prototype", insolar.GenesisNameWallet, 0),
 }
 var (
@@ -61,8 +60,6 @@ var (
 	ContractMigrationWallet = GenesisRef(insolar.GenesisNameMigrationWallet)
 	// ContractDeposit is the deposit contract reference.
 	ContractDeposit = GenesisRef(insolar.GenesisNameDeposit)
-	// ContractStandardTariff is the tariff contract reference.
-	ContractStandardTariff = GenesisRef(insolar.GenesisNameStandardTariff)
 	// ContractCostCenter is the cost center contract reference.
 	ContractCostCenter = GenesisRef(insolar.GenesisNameCostCenter)
 	// ContractFeeWallet is the commission wallet contract reference.
