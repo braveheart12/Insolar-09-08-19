@@ -43,6 +43,7 @@ func InitializeContractMethods() map[string]XXX_insolar.ContractWrapper {
 		"deposit":        deposit.Initialize(),
 		"helloworld":     helloworld.Initialize(),
 		"member":         member.Initialize(),
+		"migrationadmin": migrationadmin.Initialize(),
 		"migrationshard": migrationshard.Initialize(),
 		"nodedomain":     nodedomain.Initialize(),
 		"noderecord":     noderecord.Initialize(),
@@ -103,6 +104,12 @@ func InitializeCodeDescriptors() []XXX_artifacts.CodeDescriptor {
 		/* code:        */ nil,
 		/* machineType: */ XXX_insolar.MachineTypeBuiltin,
 		/* ref:         */ shouldLoadRef("111A72gPKWyrF9c7yzDoccRoPQ62g1uQQDBecWJwAYr.11111111111111111111111111111111"),
+	))
+	// migrationadmin
+	rv = append(rv, XXX_artifacts.NewCodeDescriptor(
+		/* code:        */ nil,
+		/* machineType: */ XXX_insolar.MachineTypeBuiltin,
+		/* ref:         */ shouldLoadRef("111A6516TVnMLh8DAzTWbtEJrgZkESeCpdn2viV6D61.11111111111111111111111111111111"),
 	))
 	// migrationshard
 	rv = append(rv, XXX_artifacts.NewCodeDescriptor(

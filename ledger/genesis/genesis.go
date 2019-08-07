@@ -234,6 +234,7 @@ func (g *Genesis) storeContracts(ctx context.Context) error {
 		contracts.GetMemberGenesisContractState(g.ContractsConfig.RootPublicKey, insolar.GenesisNameRootMember, insolar.GenesisNameRootDomain, *rwRef),
 		contracts.GetMemberGenesisContractState(g.ContractsConfig.MigrationAdminPublicKey, insolar.GenesisNameMigrationAdminMember, insolar.GenesisNameRootDomain, *mawRef),
 		contracts.GetWalletGenesisContractState("0", insolar.GenesisNameFeeWallet, insolar.GenesisNameRootDomain),
+		contracts.GetMigrationAdminGenesisContractState(),
 		contracts.GetCostCenterGenesisContractState(),
 	}
 

@@ -40,6 +40,7 @@ var PredefinedPrototypes = map[string]insolar.Reference{
 	insolar.GenesisNameDeposit + PrototypeSuffix:              *GenerateFromContractID(PrototypeType, insolar.GenesisNameDeposit, 0),
 	insolar.GenesisNameMember + PrototypeSuffix:               *GenerateFromContractID(PrototypeType, insolar.GenesisNameMember, 0),
 	insolar.GenesisNameMigrationAdminMember + PrototypeSuffix: *GenerateFromContractID(PrototypeType, insolar.GenesisNameMember, 0),
+	insolar.GenesisNameMigrationAdmin + PrototypeSuffix:       *GenerateFromContractID(PrototypeType, insolar.GenesisNameMigrationAdmin, 0),
 	insolar.GenesisNameMigrationWallet + PrototypeSuffix:      *GenerateFromContractID(PrototypeType, insolar.GenesisNameWallet, 0),
 	insolar.GenesisNameStandardTariff + PrototypeSuffix:       *GenerateFromContractID(PrototypeType, insolar.GenesisNameTariff, 0),
 	insolar.GenesisNameTariff + PrototypeSuffix:               *GenerateFromContractID(PrototypeType, insolar.GenesisNameTariff, 0),
@@ -59,6 +60,8 @@ var (
 	ContractRootWallet = GenesisRef(insolar.GenesisNameRootWallet)
 	// ContractMigrationAdminMember is the migration admin member contract reference.
 	ContractMigrationAdminMember = GenesisRef(insolar.GenesisNameMigrationAdminMember)
+	// ContractMigrationWallet is the migration wallet contract reference.
+	ContractMigrationAdmin = GenesisRef(insolar.GenesisNameMigrationAdmin)
 	// ContractMigrationWallet is the migration wallet contract reference.
 	ContractMigrationWallet = GenesisRef(insolar.GenesisNameMigrationWallet)
 	// ContractDeposit is the deposit contract reference.

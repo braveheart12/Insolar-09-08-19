@@ -23,6 +23,7 @@ import (
 	"github.com/insolar/insolar/insolar/genesisrefs"
 	"github.com/insolar/insolar/logicrunner/builtin/contract/costcenter"
 	"github.com/insolar/insolar/logicrunner/builtin/contract/member"
+	"github.com/insolar/insolar/logicrunner/builtin/contract/migrationadmin"
 	"github.com/insolar/insolar/logicrunner/builtin/contract/migrationshard"
 	"github.com/insolar/insolar/logicrunner/builtin/contract/nodedomain"
 	"github.com/insolar/insolar/logicrunner/builtin/contract/pkshard"
@@ -131,6 +132,22 @@ func GetMigrationShardGenesisContractState(name string) insolar.GenesisContractS
 		Prototype:  insolar.GenesisNameMigrationShard,
 		ParentName: insolar.GenesisNameRootDomain,
 		Memory:     mustGenMemory(s),
+	}
+}
+
+func GetMigrationAdminGenesisContractState() insolar.GenesisContractState {
+	ma, err := migrationadmin.NewMigrationAdmin(genesisrefs.ContractMigrationDaemonMembers, genesisrefs.ContractMigrationAdminMember)
+
+	if err != nil {
+		panic("failed to create cost center instance")
+	}
+
+	return insolar.GenesisContractState{
+		Name:       insolar.GenesisNameMigrationAdmin,
+		Prototype:  insolar.GenesisNameMigrationAdmin,
+		ParentName: insolar.GenesisNameRootDomain,
+		Delegate:   false,
+		Memory:     mustGenMemory(ma),
 	}
 }
 

@@ -61,3 +61,8 @@ func GetMigrationAdminMember() insolar.Reference {
 func GetRootMember() insolar.Reference {
 	return genesisrefs.ContractRootMember
 }
+
+func GetMigrationAdmin() insolar.Reference {
+	return genesisrefs.ContractMigrationAdmin
+
+}

@@ -449,61 +449,61 @@ func (m *Member) createMember(name string, key string, migrationAddress string) 
 
 // Migration methods.
 func (m *Member) depositMigration(txHash string, burnAddress string, amount *big.Int) error {
-	rd := rootdomain.GetObject(m.RootDomain)
-
-	// Get migration daemon members
-	migrationDaemonMembers, err := rd.GetActiveMigrationDaemonMembers()
-	if err != nil {
-		return fmt.Errorf("failed to get migraion daemons: %s", err.Error())
-	}
-
-	// Check that caller is migration daemon
-	mdIndex := -1
-	for i, mdRef := range migrationDaemonMembers {
-		if mdRef == m.GetReference() {
-			mdIndex = i
-
-		}
-	}
-	if mdIndex == -1 {
-		return fmt.Errorf("this migration daemon is not in the list of active daemons")
-	}
-
-	// Get member by burn address
-	tokenHolderRef, err := rd.GetMemberByMigrationAddress(burnAddress)
-	if err != nil {
-		return fmt.Errorf("failed to get member by burn address")
-	}
-	tokenHolder := member.GetObject(*tokenHolderRef)
-
-	// Find deposit for txHash
-	found, txDepositRef, err := tokenHolder.FindDeposit(txHash)
-	if err != nil {
-		return fmt.Errorf("failed to get deposit: %s", err.Error())
-	}
-
-	// If deposit doesn't exist - create new deposit
-	if !found {
-		migrationDaemonConfirms := [3]string{}
-		migrationDaemonConfirms[mdIndex] = m.GetReference().String()
-		dHolder := deposit.New(migrationDaemonConfirms, txHash, amount.String())
-		txDeposit, err := dHolder.AsChild(*tokenHolderRef)
-		if err != nil {
-			return fmt.Errorf("failed to save as delegate: %s", err.Error())
-		}
-
-		err = tokenHolder.AddDeposit(txHash, txDeposit.GetReference())
-		if err != nil {
-			return fmt.Errorf("failed to set deposit: %s", err.Error())
-		}
-		return nil
-	}
-	// Confirm transaction by migration daemon
-	txDeposit := deposit.GetObject(txDepositRef)
-	err = txDeposit.Confirm(mdIndex, m.GetReference().String(), txHash, amount.String())
-	if err != nil {
-		return fmt.Errorf("confirmed failed: %s", err.Error())
-	}
+	//rd := rootdomain.GetObject(m.RootDomain)
+	//
+	//// Get migration daemon members
+	//migrationDaemonMembers, err := rd.GetActiveMigrationDaemonMembers()
+	//if err != nil {
+	//	return fmt.Errorf("failed to get migraion daemons: %s", err.Error())
+	//}
+	//
+	//// Check that caller is migration daemon
+	//mdIndex := -1
+	//for i, mdRef := range migrationDaemonMembers {
+	//	if mdRef == m.GetReference() {
+	//		mdIndex = i
+	//
+	//	}
+	//}
+	//if mdIndex == -1 {
+	//	return fmt.Errorf("this migration daemon is not in the list of active daemons")
+	//}
+	//
+	//// Get member by burn address
+	//tokenHolderRef, err := rd.GetMemberByMigrationAddress(burnAddress)
+	//if err != nil {
+	//	return fmt.Errorf("failed to get member by burn address")
+	//}
+	//tokenHolder := member.GetObject(*tokenHolderRef)
+	//
+	//// Find deposit for txHash
+	//found, txDepositRef, err := tokenHolder.FindDeposit(txHash)
+	//if err != nil {
+	//	return fmt.Errorf("failed to get deposit: %s", err.Error())
+	//}
+	//
+	//// If deposit doesn't exist - create new deposit
+	//if !found {
+	//	migrationDaemonConfirms := [3]string{}
+	//	migrationDaemonConfirms[mdIndex] = m.GetReference().String()
+	//	dHolder := deposit.New(migrationDaemonConfirms, txHash, amount.String())
+	//	txDeposit, err := dHolder.AsChild(*tokenHolderRef)
+	//	if err != nil {
+	//		return fmt.Errorf("failed to save as delegate: %s", err.Error())
+	//	}
+	//
+	//	err = tokenHolder.AddDeposit(txHash, txDeposit.GetReference())
+	//	if err != nil {
+	//		return fmt.Errorf("failed to set deposit: %s", err.Error())
+	//	}
+	//	return nil
+	//}
+	//// Confirm transaction by migration daemon
+	//txDeposit := deposit.GetObject(txDepositRef)
+	//err = txDeposit.Confirm(mdIndex, m.GetReference().String(), txHash, amount.String())
+	//if err != nil {
+	//	return fmt.Errorf("confirmed failed: %s", err.Error())
+	//}
 	return nil
 }
 
